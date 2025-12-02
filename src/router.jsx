@@ -1,48 +1,48 @@
-import { createBroswerRouter } from "react-router-dom";
-import App from "../App";
-import OnboardingPage from "./pages/Onboarding/OnboardingPage.jsx";
-import SignupPage from "./pages/Member/SignupPage.jsx";
-import LoginPage from "./pages/Member/LoginPage.jsx";
-import HomePage from "../pages/Home/HomePage.jsx";
-import ReportPage from "./pages/Report/ReportPage.jsx";
-import HistoryPage from "./pages/History/HistoryPage.jsx";
-import ProfilePage from "./pages/Profile/ProfilePage.jsx";
+import { createBrowserRouter } from 'react-router-dom'
+import App from './App'
+import OnboardingPage from './pages/Onboarding/OnboardingPage.jsx'
+import SignupPage from './pages/Member/SignupPage.jsx'
+import LoginPage from './pages/Member/LoginPage.jsx'
+import HomePage from './pages/Home/HomePage.jsx'
+import ReportPage from './pages/Report/ReportPage.jsx'
+import HistoryPage from './pages/History/HistoryPage.jsx'
+import ProfilePage from './pages/Profile/ProfilePage.jsx'
 
-const router = createBroswerRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
-    Children: [
+    children: [
       {
-        path: "/onboarding",
+        path: '/onboarding',
         element: <OnboardingPage />,
       },
       {
-        path: "/signup",
+        path: '/signup',
         element: <SignupPage />,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <LoginPage />,
       },
       {
-        path: "/",
+        path: '/',
         element: <HomePage />,
       },
       {
-        path: "/report",
+        path: '/report',
         element: <ReportPage />,
       },
       {
-        path: "/history",
+        path: '/history',
         element: <HistoryPage />,
       },
       {
-        path: "/profile",
+        path: '/profile',
         element: <ProfilePage />,
       },
     ],
   },
-]);
+])
 
-export default router;
+export default router
