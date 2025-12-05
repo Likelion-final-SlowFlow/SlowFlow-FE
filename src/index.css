@@ -1,1 +1,25 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+@layer base {
+  body {
+    @apply mx-auto min-h-screen w-full max-w-5xl;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--color-text-primary);
+  }
+}
+
+@theme {
+  --color-main-green: #cddf7d;
+  --color-charge-green: #a8e063;
+  --color-drain-peach: #c5df7d;
+  --color-bg-soft: #fff8f0;
+  --color-bg-warm: #fee2c0;
+  --color-bg-green: #d9eaab;
+  --color-bg-lightgreen: #d9eaab;
+  --color-bg-light: #f7f7f7;
+  --color-bg-medium: #e4e4e4;
+  --color-text-primary: #333333;
+  --color-bg-white: #ffffff;
+  --color-text-black: #000000;
+}
