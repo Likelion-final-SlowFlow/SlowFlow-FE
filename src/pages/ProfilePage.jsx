@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React from 'react'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Slider } from '@/components/ui/slider'
 
 const ProfilePage = () => {
-  const navigate = Navigate()
+  const navigate = useNavigate()
   const [value, setValue] = React.useState([200]) // Slider 값 상태 관리
   const min = 0
   const max = 400
@@ -16,32 +16,36 @@ const ProfilePage = () => {
   const hideMax = value[0] >= 390
   const [userId, setUserId] = React.useState('')
 
-  const getId = () => {
-    axios
-      .get('/profile')
-      .then((response) => {
-        console.log(response.data) // 확인 후 삭제 예정
-        setUserId(response.data.userId)
-      })
-      .catch((error) => {
-        console.log(error)
-        // 추가 에러 처리 예정
-      })
-  }
+  // useEffect(() => {
+  //   getId()
+  // }, [])
+
+  // const getId = () => {
+  //   axios
+  //     .get('/profile')
+  //     .then((response) => {
+  //       console.log(response.data) // 확인 후 삭제 예정
+  //       setUserId(response.data.userId)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //       // 추가 에러 처리 예정
+  //     })
+  // }
 
   const postLogout = () => {
-    axios
-      .post('/auth/logout', {
-        userId: userId,
-      })
-      .then((response) => {
-        console.log(response.data) // 확인 후 삭제 예정
-        navigate('/login')
-      })
-      .catch((error) => {
-        console.log(error)
-        // 추가 에러 처리 예정
-      })
+    // axios
+    //   .post('/auth/logout', {
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data) // 확인 후 삭제 예정
+    //     navigate('/login')
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //     // 추가 에러 처리 예정
+    //   })
   }
 
   return (
