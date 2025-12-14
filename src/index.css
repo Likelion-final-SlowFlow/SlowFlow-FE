@@ -34,4 +34,23 @@
   .screen-center {
     @apply flex min-h-screen flex-col items-center justify-center;
   }
+  /* 제목 텍스트 */
+  .text-sb-18 {
+    @apply text-[18px] font-semibold;
+  }
+  /* profile 밑줄 */
+  @layer components {
+    .highlight-center {
+      @apply relative inline-block;
+    }
+
+    .highlight-center::after {
+      content: '';
+      @apply bg-main-green/60 absolute top-[55%] left-0 h-1.5 w-full -translate-y-1/2;
+    }
+
+    .highlight-text {
+      @apply relative z-10;
+    }
+  }
 }
