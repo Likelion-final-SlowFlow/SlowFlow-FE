@@ -3,6 +3,7 @@ import React from 'react'
 const AuthBox = ({
   label,
   value,
+  type,
   name,
   onChange,
   onBlur,
@@ -22,6 +23,7 @@ const AuthBox = ({
           className={`h-11 w-full rounded-[15px] border-1 border-solid pr-[70px] pl-4 text-lg font-medium focus:outline-none ${invalid ? 'border-red-500' : 'border-bg-medium focus:border-color-accent'} `}
           name={name}
           value={value}
+          type={type || 'text'}
           onChange={onChange}
           onBlur={onBlur}
           autoComplete='off'

@@ -35,6 +35,7 @@ const LoginPage = () => {
           label='아이디'
           name='id'
           value={form.id}
+          type='text'
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, id: true }))}
           invalid={touched.id && !form.id}
@@ -43,6 +44,7 @@ const LoginPage = () => {
         <AuthBox
           label='비밀번호'
           name='password'
+          type='password'
           value={form.password}
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}

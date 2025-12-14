@@ -69,6 +69,7 @@ const SignupPage = () => {
           label='이메일'
           name='email'
           value={form.email}
+          type='email'
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
           onCheck={checkDuplicateEmail}
@@ -94,6 +95,7 @@ const SignupPage = () => {
           label='아이디'
           name='id'
           value={form.id}
+          type='text'
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, id: true }))}
           onCheck={checkDuplicateId}
@@ -112,6 +114,7 @@ const SignupPage = () => {
           label='비밀번호'
           name='password'
           value={form.password}
+          type='password'
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
           invalid={touched.password && (!form.password || !isValidPassword(form.password))}
@@ -127,6 +130,7 @@ const SignupPage = () => {
           label='비밀번호 확인'
           name='passwordCheck'
           value={form.passwordCheck}
+          type='password'
           onChange={handleChange}
           onBlur={() => setTouched((prev) => ({ ...prev, passwordCheck: true }))}
           invalid={
