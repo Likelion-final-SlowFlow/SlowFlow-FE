@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import OnboardingPage from './pages/Onboarding/OnboardingPage.jsx'
-import SignupPage from './pages/Member/SignupPage.jsx'
-import LoginPage from './pages/Member/LoginPage.jsx'
-import HomePage from './pages/Home/HomePage.jsx'
-import ReportPage from './pages/Report/ReportPage.jsx'
-import HistoryPage from './pages/History/HistoryPage.jsx'
-import ProfilePage from './pages/Profile/ProfilePage.jsx'
+import OnboardingPage from './pages/OnboardingPage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import HomePage from './pages/HomePage.jsx'
+import ReportPage from './pages/ReportPage.jsx'
+import HistoryPage from './pages/HistoryPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const router = createBrowserRouter([
   {

@@ -5,7 +5,7 @@
   body {
     @apply mx-auto min-h-screen w-full max-w-5xl;
     font-family: 'Noto Sans KR', sans-serif;
-    color: var(--color-text-primary);
+    color: var(--color-primary);
   }
 }
 
@@ -13,13 +13,25 @@
   --color-main-green: #cddf7d;
   --color-charge-green: #a8e063;
   --color-drain-peach: #c5df7d;
-  --color-bg-soft: #fff8f0;
-  --color-bg-warm: #fee2c0;
-  --color-bg-green: #d9eaab;
-  --color-bg-lightgreen: #d9eaab;
-  --color-bg-light: #f7f7f7;
-  --color-bg-medium: #e4e4e4;
-  --color-text-primary: #333333;
-  --color-bg-white: #ffffff;
-  --color-text-black: #000000;
+  --color-soft: #fff8f0;
+  --color-warm: #fee2c0;
+  --color-green: #d9eaab;
+  --color-lightgreen: #d9eaab;
+  --color-light: #f7f7f7;
+  --color-medium: #e4e4e4;
+  --color-disabled: #c8c8c8;
+  --color-primary: #333333;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-red: #dc2626;
+  --color-green: #0ed15c;
+}
+
+/* --- 필요 시 추가 --- */
+
+@layer components {
+  /* 전체 화면 중앙 정렬 */
+  .screen-center {
+    @apply flex min-h-screen flex-col items-center justify-center;
+  }
 }
