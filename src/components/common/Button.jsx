@@ -7,11 +7,12 @@ const Button = ({
   width = 'w-[81.7vw]',
   maxWidth = 'max-w-[837px]',
   rounded = 'rounded-[15px]',
+  marginTop = 'mt-[29px]',
 }) => {
   return (
     <div>
       <button
-        className={`mt-[29px] h-[41px] ${width} ${maxWidth} ${rounded} text-base font-semibold text-white ${
+        className={`${marginTop} h-[41px] ${width} ${maxWidth} ${rounded} text-base font-semibold text-white ${
           disabled ? 'bg-disabled' : 'bg-primary'
         }`}
         onClick={onClick}
