@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthBox from '../components/auth/AuthBox'
 import Button from '../components/common/Button'
 import Logo from '../assets/Logo.svg'
 import AuthModal from '@/components/auth/AuthModal'
+import { login } from '@/api/shared/login'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
+  const navigate = useNavigate()
+  // 모달
   const [showModal, setShowModal] = useState(false)
-  // 모달 테스트용
-  useEffect(() => {
+  const [modalMessage, setModalMessage] = useState('')
+  const openModal = (msg) => {
+    setModalMessage(msg)
     setShowModal(true)
-  }, [])
+  }
 
   const [form, setForm] = useState({ id: '', password: '' })
   const [touched, setTouched] = useState({ id: false, password: false })
@@ -20,8 +25,33 @@ const LoginPage = () => {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleLogin = () => {
-    // 연동 코드 작성 예정
+  const handleLogin = async () => {
+    if (!form.id.trim() || !form.password) {
+      setTouched({ id: true, password: true })
+      return
+    }
+
+    try {
+      await login({
+        username: form.id.trim(),
+        password: form.password,
+      })
+      // 로그인 성공
+      navigate('/')
+    } catch (err) {
+      console.error(err)
+      // 401/404
+      if (err.code === 'USER_NOT_FOUND') {
+        openModal('존재하지 않는 사용자입니다.')
+        return
+      }
+      if (err.code === 'INVALID_PASSWORD') {
+        openModal('비밀번호가 일치하지 않습니다.')
+        return
+      }
+      // 그 외
+      openModal('로그인 정보를 다시 확인해 주세요')
+    }
   }
 
   const isDisabled = !form.id || !form.password
@@ -63,7 +93,10 @@ const LoginPage = () => {
       </p>
 
       {showModal && (
-        <AuthModal message='로그인 정보를 다시 확인해 주세요' onClose={() => setShowModal(false)} />
+        <AuthModal
+          message={modalMessage || '로그인 정보를 다시 확인해 주세요'}
+          onClose={() => setShowModal(false)}
+        />
       )}
     </div>
   )
