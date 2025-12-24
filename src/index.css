@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import 'tailwindcss';
 
 @layer base {
   body {
@@ -12,7 +12,7 @@
 @theme {
   --color-main-green: #cddf7d;
   --color-charge-green: #a8e063;
-  --color-drain-peach: #c5df7d;
+  --color-drain-peach: #ffab9d;
   --color-soft: #fff8f0;
   --color-warm: #fee2c0;
   --color-green: #d9eaab;
@@ -38,6 +38,7 @@
   .text-sb-18 {
     @apply text-[18px] font-semibold;
   }
+
   /* profile 밑줄 */
   @layer components {
     .highlight-center {
@@ -53,4 +54,12 @@
       @apply relative z-10;
     }
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
