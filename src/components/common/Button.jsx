@@ -12,7 +12,7 @@ const Button = ({
   return (
     <div>
       <button
-        className={`${marginTop} h-[41px] ${width} ${maxWidth} ${rounded} text-base font-semibold text-white ${
+        className={`${marginTop} h-[41px] ${width} ${maxWidth} ${rounded} text-base font-semibold text-white active:scale-[0.99] ${
           disabled ? 'bg-disabled' : 'bg-primary'
         }`}
         onClick={onClick}
