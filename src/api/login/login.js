@@ -1,5 +1,5 @@
-import client from './client'
-import { handleApiError } from './handleApiError'
+import client from '../shared/client'
+import { handleApiError } from '../shared/handleApiError'
 import { tokenStorage } from './tokenStorage'
 
 export async function login({ username, password }) {

@@ -1,5 +1,5 @@
-import client from './client'
-import { handleApiError } from './handleApiError.js'
+import client from '../shared/client'
+import { handleApiError } from '../shared/handleApiError.js'
 
 export async function checkUsername(username) {
   try {

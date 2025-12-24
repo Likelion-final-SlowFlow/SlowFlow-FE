@@ -1,5 +1,5 @@
-import client from './client'
-import { handleApiError } from './handleApiError'
+import client from '../shared/client'
+import { handleApiError } from '../shared/handleApiError'
 
 // 회원가입 API
 export async function signup({ username, email, password }) {
