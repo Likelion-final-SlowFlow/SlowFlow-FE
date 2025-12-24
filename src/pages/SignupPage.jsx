@@ -1,55 +1,146 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import AuthBox from '../components/auth/AuthBox'
 import Button from '../components/common/Button'
 import Logo from '../assets/Logo.svg'
 import AuthModal from '@/components/auth/AuthModal'
 
-const SignupPage = () => {
-  const [showModal, setShowModal] = useState(false)
-  // 모달 테스트용
-  useEffect(() => {
-    setShowModal(true)
-  }, [])
+import { checkEmail } from '@/api/shared/checkEmail.js'
+import { checkUsername } from '@/api/shared/checkUsername'
+import { signup } from '@/api/shared/signup'
 
-  const [form, setForm] = useState({ email: '', id: '', password: '', passwordCheck: '' })
+const SignupPage = () => {
+  const navigate = useNavigate()
+
+  // 모달
+  const [showModal, setShowModal] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
+
+  // 폼
+  const [form, setForm] = useState({
+    email: '',
+    id: '',
+    password: '',
+    passwordCheck: '',
+  })
+
   const [touched, setTouched] = useState({
     email: false,
     id: false,
     password: false,
     passwordCheck: false,
   })
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-  }
 
   // 중복 확인
   const [isIdAvailable, setIsIdAvailable] = useState(null)
   const [isEmailAvailable, setIsEmailAvailable] = useState(null)
-
-  const checkDuplicateEmail = () => {
-    // 연동 코드 작성 예정
-    // 성공 시
-    // setIsEmailAvailable(true)
-    // 실패 시
-    // setIsEmailAvailable(false)
-  }
-  const checkDuplicateId = () => {
-    // 연동 코드 작성 예정
-    // 성공 시
-    // setIsIdAvailable(true)
-    // 실패 시
-    // setIsIdAvailable(false)
-  }
 
   // 유효성 검사
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   const isValidPassword = (password) =>
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/.test(password)
 
-  // 회원가입 처리
-  const handleSignup = () => {
-    // 연동 코드 작성 예정
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+
+    // 값 바뀌면 중복확인 결과 초기화
+    if (name === 'email') setIsEmailAvailable(null)
+    if (name === 'id') setIsIdAvailable(null)
+  }
+
+  const openModal = (message) => {
+    setModalMessage(message)
+    setShowModal(true)
+  }
+
+  const checkDuplicateEmail = async () => {
+    if (!form.email) {
+      setTouched((prev) => ({ ...prev, email: true }))
+      setIsEmailAvailable(null)
+      return
+    }
+
+    if (!isValidEmail(form.email)) {
+      setTouched((prev) => ({ ...prev, email: true }))
+      setIsEmailAvailable(null)
+      return
+    }
+
+    try {
+      const available = await checkEmail(form.email)
+      setIsEmailAvailable(available)
+    } catch (err) {
+      console.error(err)
+      setIsEmailAvailable(null)
+      openModal('이메일 중복확인에 실패했습니다.')
+    }
+  }
+
+  const checkDuplicateId = async () => {
+    if (!form.id.trim()) {
+      setTouched((prev) => ({ ...prev, id: true }))
+      setIsIdAvailable(null)
+      return
+    }
+
+    try {
+      const available = await checkUsername(form.id.trim())
+      setIsIdAvailable(available)
+    } catch (err) {
+      console.error(err)
+      setIsIdAvailable(null)
+      openModal('아이디 중복확인에 실패했습니다.')
+    }
+  }
+
+  const handleSignup = async () => {
+    if (!form.email || !form.id || !form.password || !form.passwordCheck) return
+    if (!isValidEmail(form.email)) return
+    if (!isValidPassword(form.password)) return
+    if (form.password !== form.passwordCheck) return
+
+    if (isEmailAvailable !== true || isIdAvailable !== true) {
+      openModal('이메일/아이디 중복확인을 완료해주세요.')
+      return
+    }
+
+    try {
+      await signup({
+        username: form.id.trim(),
+        email: form.email.trim(),
+        password: form.password,
+      })
+
+      openModal('회원가입이 완료되었습니다.')
+      navigate('/login')
+    } catch (err) {
+      console.error(err)
+
+      // 409 (이메일/아이디 중복)
+      if (err.code === 'EMAIL_ALREADY_EXISTS') {
+        setIsEmailAvailable(false)
+        setTouched((prev) => ({ ...prev, email: true }))
+        return
+      }
+
+      if (err.code === 'USERNAME_ALREADY_EXISTS') {
+        setIsIdAvailable(false)
+        setTouched((prev) => ({ ...prev, id: true }))
+        return
+      }
+
+      // 400 VALIDATION_ERROR
+      if (err.code === 'VALIDATION_ERROR') {
+        const fieldErrors = err.data || {}
+        if (fieldErrors.email) setTouched((prev) => ({ ...prev, email: true }))
+        if (fieldErrors.password) setTouched((prev) => ({ ...prev, password: true }))
+        openModal(err.message || '입력값이 유효하지 않습니다.')
+        return
+      }
+      openModal('회원가입에 실패했습니다.')
+    }
   }
 
   const isDisabled = !(
@@ -91,6 +182,7 @@ const SignupPage = () => {
                   : ''
           }
         />
+
         <AuthBox
           label='아이디'
           name='id'
@@ -110,6 +202,7 @@ const SignupPage = () => {
                 : ''
           }
         />
+
         <AuthBox
           label='비밀번호'
           name='password'
@@ -126,6 +219,7 @@ const SignupPage = () => {
                 : ''
           }
         />
+
         <AuthBox
           label='비밀번호 확인'
           name='passwordCheck'
@@ -145,10 +239,14 @@ const SignupPage = () => {
           }
         />
       </form>
+
       <Button text='회원가입 하기' onClick={handleSignup} disabled={isDisabled} />
 
       {showModal && (
-        <AuthModal message='회원가입에 실패했습니다.' onClose={() => setShowModal(false)} />
+        <AuthModal
+          message={modalMessage || '회원가입에 실패했습니다.'}
+          onClose={() => setShowModal(false)}
+        />
       )}
     </div>
   )
