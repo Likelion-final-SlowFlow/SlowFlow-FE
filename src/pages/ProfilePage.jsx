@@ -6,6 +6,7 @@ import { getProfile } from '@/api/profile/getProfile.js'
 import { updateGoal } from '@/api/profile/updateGoal.js'
 import { logout } from '@/api/profile/logout.js'
 import { tokenStorage } from '@/api/login/tokenStorage.js'
+import Footer from '@/components/common/Footer'
 
 const ProfilePage = () => {
   const navigate = useNavigate()
@@ -151,6 +152,7 @@ const ProfilePage = () => {
           </button>
         </section>
       </div>
+      <Footer select='profile' />
     </div>
   )
 }

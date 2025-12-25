@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import SegmentedControl from '../components/history/SegmentedControl'
 import WeeklyComponent from '../components/history/WeeklyComponent'
 import MonthlyComponent from '../components/history/MonthlyComponent'
+import Footer from '@/components/common/Footer'
 
 const HistoryPage = () => {
   const [mode, setMode] = useState('week')
@@ -13,6 +14,7 @@ const HistoryPage = () => {
 
       {mode === 'week' && <WeeklyComponent />}
       {mode === 'month' && <MonthlyComponent />}
+      <Footer select='history' />
     </div>
   )
 }
