@@ -3,8 +3,9 @@ import AICommentCard from '@/components/report/AICommentCard'
 import CategoryAccordion from '@/components/report/CategoryAccordion'
 import ScoreSummaryCard from '@/components/report/ScoreSummaryCard'
 import DateNavigator from '@/components/report/DateNavigator'
-import { getDailyreport } from '@/api/report/getDailyReport'
+import { getDailyreport } from '@/api/report/getDailyreport'
 import useApi from '@/hook/useApi'
+import Footer from '@/components/common/Footer'
 
 export default function ReportPage() {
   const [date, setDate] = useState(new Date())
@@ -17,7 +18,6 @@ export default function ReportPage() {
     const dd = String(date.getDate()).padStart(2, '0')
     const dateParam = `${yyyy}-${mm}-${dd}`
 
-    console.log(dateParam)
     execute({ date: dateParam })
   }, [date, execute])
 
@@ -67,7 +67,7 @@ export default function ReportPage() {
               <section className='mt-8'>
                 <h2 className='text-primary text-lg font-semibold'>AI 통합 코멘트</h2>
 
-                <div className='mt-3 mb-10'>
+                <div className='mt-3 mb-25'>
                   <AICommentCard>{data?.aiComment}</AICommentCard>
                 </div>
               </section>
@@ -75,6 +75,7 @@ export default function ReportPage() {
           )}
         </div>
       </div>
+      <Footer select='report' />
     </div>
   )
 }
