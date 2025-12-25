@@ -1,12 +1,18 @@
 // @ts-nocheck
-import React from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Slider } from '@/components/ui/slider'
+import { getProfile } from '@/api/profile/getProfile.js' // API 함수 import
 
 const ProfilePage = () => {
   const navigate = useNavigate()
-  const [value, setValue] = React.useState([200]) // Slider 값 상태 관리
+
+  // 닉네임 상태
+  const [userId, setUserId] = useState('')
+
+  // 슬라이더 상태
+  const [value, setValue] = useState([200])
+
   const min = 0
   const max = 400
   const thumbSize = 18
@@ -14,47 +20,37 @@ const ProfilePage = () => {
   const offset = (0.5 - percent / 100) * thumbSize
   const hideMin = value[0] <= 10
   const hideMax = value[0] >= 390
-  const [userId, setUserId] = React.useState('')
 
-  // useEffect(() => {
-  //   getId()
-  // }, [])
+  // 프로필 조회 API 호출
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getProfile()
+        if (data && data.username) {
+          setUserId(data.username)
+        }
+      } catch (error) {
+        console.error('프로필 조회 실패:', error)
+      }
+    }
 
-  // const getId = () => {
-  //   axios
-  //     .get('/profile')
-  //     .then((response) => {
-  //       console.log(response.data) // 확인 후 삭제 예정
-  //       setUserId(response.data.userId)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //       // 추가 에러 처리 예정
-  //     })
-  // }
+    fetchUserData()
+  }, [])
 
+  // 로그아웃
   const postLogout = () => {
-    // axios
-    //   .post('/auth/logout', {
-    //     userId: userId,
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data) // 확인 후 삭제 예정
-    //     navigate('/login')
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //     // 추가 에러 처리 예정
-    //   })
+    console.log('로그아웃 클릭')
+    // 추후 구현
   }
 
   return (
     <div className='screen-center'>
       <div className='mt-[34px] mb-[17px] w-[73.8vw] max-w-[756px]'>
-        {/* 사용자 아이디 */}
+        {/* 사용자 아이디  */}
         <section className='text-sb-18 bg-light mb-[34px] flex h-[97px] items-center rounded-[20px] pl-5'>
-          사용자 아이디님
+          {userId ? `${userId}님` : '사용자님'}
         </section>
+
         {/* 목표 설정*/}
         <section className='mb-[37px]'>
           <p className='text-sb-18 mb-2.5'>목표 설정하기</p>
@@ -63,7 +59,7 @@ const ProfilePage = () => {
               <p className='pt-[15px] pb-6 text-[16px] font-medium'>오늘의 목표</p>
               <div className='relative'>
                 <Slider value={value} onValueChange={setValue} min={min} max={max} step={1} />
-                {/* 현재 값 (Thumb 아래) */}
+                {/* 현재 값 */}
                 <span
                   className='text-main-green absolute bottom-full mb-1 -translate-x-1/2 text-[14px] font-medium'
                   style={{ left: `calc(${percent}% + ${offset}px)` }}
@@ -82,7 +78,8 @@ const ProfilePage = () => {
             </div>
           </div>
         </section>
-        {/* 스코어링 기준표 */}
+
+        {/* 스코어링 기준표  */}
         <section className='mb-[25px]'>
           <p className='text-sb-18 mb-2.5'>스코어링 기준표</p>
           <div className='bg-soft flex h-auto flex-col items-center rounded-[20px] py-[27px]'>
@@ -129,7 +126,8 @@ const ProfilePage = () => {
 
           <div className='bg-soft h-auto rounded-[20px]'></div>
         </section>
-        {/* 로그아웃 */}
+
+        {/* 로그아웃 버튼 */}
         <section className='bg-light flex h-[53px] items-center rounded-[20px] pl-[38px]'>
           <button className='text-[16px] font-medium' onClick={postLogout}>
             로그아웃
