@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Slider } from '@/components/ui/slider'
 import { getProfile } from '@/api/profile/getProfile.js'
 import { updateGoal } from '@/api/profile/updateGoal.js'
+import { logout } from '@/api/profile/logout.js'
+import { tokenStorage } from '@/api/login/tokenStorage.js'
 
 const ProfilePage = () => {
   const navigate = useNavigate()
@@ -43,9 +45,17 @@ const ProfilePage = () => {
     }
   }
 
-  const postLogout = () => {
-    console.log('로그아웃 클릭')
-    // 추후 구현
+  //  로그아웃 처리
+  const handleLogout = async () => {
+    try {
+      await logout()
+      console.log('로그아웃 성공')
+    } catch (error) {
+      console.error('서버 로그아웃 실패', error)
+    } finally {
+      tokenStorage.clear() // 토큰 삭제
+      navigate('/login') // 로그인 페이지로 이동
+    }
   }
 
   return (
@@ -136,7 +146,7 @@ const ProfilePage = () => {
         </section>
 
         <section className='bg-light flex h-[53px] items-center rounded-[20px] pl-[38px]'>
-          <button className='text-[16px] font-medium' onClick={postLogout}>
+          <button className='text-[16px] font-medium' onClick={handleLogout}>
             로그아웃
           </button>
         </section>
