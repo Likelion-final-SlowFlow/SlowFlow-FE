@@ -9,7 +9,7 @@ const HistoryPage = () => {
   const [mode, setMode] = useState('week')
 
   return (
-    <div className='mt-[19px] flex min-h-screen flex-col items-center'>
+    <div className='flex min-h-screen flex-col items-center pt-[19px]'>
       <SegmentedControl value={mode} onChange={setMode} />
 
       {mode === 'week' && <WeeklyComponent />}
