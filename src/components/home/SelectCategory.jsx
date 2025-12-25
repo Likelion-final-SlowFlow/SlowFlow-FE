@@ -26,28 +26,40 @@ export default function SelectCategory() {
   const [text, setText] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [modalResult, setModalResult] = useState(null)
 
-  const { data, execute } = useApi(actions)
+  const { execute } = useApi(actions)
 
   const isCategorySelected = Boolean(category)
   const isButtonEnabled = isCategorySelected && text.length > 0
 
-  const handleActions = () => {
-    execute({
-      category: CATEGORY_CONFIG[category].type,
-      text,
-    })
-    setIsModalOpen(true)
+  const handleActions = async () => {
+    try {
+      const res = await execute({
+        category: CATEGORY_CONFIG[category].type,
+        text,
+      })
+      setModalResult(res ?? null)
+    } catch (e) {
+      setModalResult(null)
+    } finally {
+      setIsModalOpen(true)
+    }
+  }
+
+  const reset = () => {
+    window.location.reload()
+    setText('')
+    setCategory(null)
   }
 
   const closeModal = () => {
     setIsModalOpen(false)
-    if (data?.updatedTotalScore < 0) {
-      setIsSheetOpen(true)
-    } else {
-      setText('')
-      setCategory(null)
-    }
+
+    if (modalResult == null) return reset()
+    if (modalResult.updatedTotalScore < 0) return setIsSheetOpen(true)
+
+    reset()
   }
 
   return (
@@ -79,11 +91,18 @@ export default function SelectCategory() {
           marginTop='mt-3'
         />
       </div>
-      <ActionResultModal open={isModalOpen} onClose={closeModal} result={data} />
+
+      <ActionResultModal open={isModalOpen} onClose={closeModal} result={modalResult} />
+
       <BottomSheet
         open={isSheetOpen}
         onClose={() => setIsSheetOpen(false)}
-        score={data?.updatedTotalScore}
+        score={modalResult?.updatedTotalScore}
+        onLimitExceeded={() => {
+          setIsSheetOpen(false)
+          setModalResult(null)
+          setIsModalOpen(true)
+        }}
       />
     </>
   )
