@@ -1,7 +1,7 @@
 import client from '../shared/client'
 import { handleApiError } from '../shared/handleApiError'
 
-// 회원가입 API
+// 회원가입
 export async function signup({ username, email, password }) {
   try {
     const res = await client.post('/auth/signup', {
