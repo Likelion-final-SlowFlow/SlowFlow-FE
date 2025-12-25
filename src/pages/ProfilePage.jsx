@@ -146,7 +146,7 @@ const ProfilePage = () => {
           <div className='bg-soft h-auto rounded-[20px]'></div>
         </section>
 
-        <section className='bg-light flex h-[53px] items-center rounded-[20px] pl-[38px]'>
+        <section className='bg-light mb-20 flex h-[53px] items-center rounded-[20px] pl-[38px]'>
           <button className='text-[16px] font-medium' onClick={handleLogout}>
             로그아웃
           </button>
