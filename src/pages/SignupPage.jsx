@@ -6,9 +6,9 @@ import Button from '../components/common/Button'
 import Logo from '../assets/Logo.svg'
 import AuthModal from '@/components/auth/AuthModal'
 
-import { checkEmail } from '@/api/shared/checkEmail.js'
-import { checkUsername } from '@/api/shared/checkUsername'
-import { signup } from '@/api/shared/signup'
+import { checkEmail } from '@/api/login/checkEmail.js'
+import { checkUsername } from '@/api/login/checkUsername'
+import { signup } from '@/api/login/signup'
 
 const SignupPage = () => {
   const navigate = useNavigate()

@@ -4,7 +4,7 @@ import AuthBox from '../components/auth/AuthBox'
 import Button from '../components/common/Button'
 import Logo from '../assets/Logo.svg'
 import AuthModal from '@/components/auth/AuthModal'
-import { login } from '@/api/shared/login'
+import { login } from '@/api/login/login'
 import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {

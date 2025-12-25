@@ -1,8 +1,14 @@
 import Dropdown1 from '@/assets/dropdown_black.svg?react'
 import Dropdown2 from '@/assets/dropdown_black2.svg?react'
 
+const LABEL_MAP = {
+  DIET: '식단',
+  EXERCISE: '운동',
+  SLEEP: '수면',
+}
+
 export default function CategoryAccordion({
-  label = '수면',
+  label = '식단',
   score = '0',
   tone = 'soft',
   items = [],
@@ -12,7 +18,7 @@ export default function CategoryAccordion({
   return (
     <details className={`group overflow-hidden rounded-[20px] ${cardBg}`}>
       <summary className='flex cursor-pointer list-none items-center justify-between px-5 py-4'>
-        <p className='text-primary text-base font-medium'>{label}</p>
+        <p className='text-primary text-base font-medium'>{LABEL_MAP[label]}</p>
 
         <div className='flex items-center gap-3'>
           <p className='text-base font-medium text-black'>{score}</p>
@@ -33,8 +39,8 @@ export default function CategoryAccordion({
                 key={`${it.text}-${idx}`}
                 className='flex items-center justify-between rounded-xl bg-white px-4 py-3'
               >
-                <p className='text-xs font-medium text-black'>{it.text}</p>
-                <p className='text-xs font-medium text-black'>{it.value}</p>
+                <p className='w-[90%] text-xs font-medium text-black'>{it.text}</p>
+                <p className='text-xs font-medium text-black'>{it.score}</p>
               </div>
             ))}
           </div>
