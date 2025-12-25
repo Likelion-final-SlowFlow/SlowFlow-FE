@@ -2,15 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Slider } from '@/components/ui/slider'
-import { getProfile } from '@/api/profile/getProfile.js' // API 함수 import
+import { getProfile } from '@/api/profile/getProfile.js'
+import { updateGoal } from '@/api/profile/updateGoal.js'
 
 const ProfilePage = () => {
   const navigate = useNavigate()
-
-  // 닉네임 상태
   const [userId, setUserId] = useState('')
-
-  // 슬라이더 상태
   const [value, setValue] = useState([200])
 
   const min = 0
@@ -21,7 +18,6 @@ const ProfilePage = () => {
   const hideMin = value[0] <= 10
   const hideMax = value[0] >= 390
 
-  // 프로필 조회 API 호출
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -33,11 +29,20 @@ const ProfilePage = () => {
         console.error('프로필 조회 실패:', error)
       }
     }
-
     fetchUserData()
   }, [])
 
-  // 로그아웃
+  const handleValueCommit = async (newValue) => {
+    const newScore = newValue[0]
+    try {
+      console.log('목표 점수 저장 시도:', newScore)
+      await updateGoal(newScore)
+    } catch (error) {
+      console.error('목표 점수 설정 실패:', error)
+      alert('목표 점수 저장에 실패했습니다.')
+    }
+  }
+
   const postLogout = () => {
     console.log('로그아웃 클릭')
     // 추후 구현
@@ -46,27 +51,30 @@ const ProfilePage = () => {
   return (
     <div className='screen-center'>
       <div className='mt-[34px] mb-[17px] w-[73.8vw] max-w-[756px]'>
-        {/* 사용자 아이디  */}
         <section className='text-sb-18 bg-light mb-[34px] flex h-[97px] items-center rounded-[20px] pl-5'>
           {userId ? `${userId}님` : '사용자님'}
         </section>
 
-        {/* 목표 설정*/}
         <section className='mb-[37px]'>
           <p className='text-sb-18 mb-2.5'>목표 설정하기</p>
           <div className='bg-light flex h-auto flex-col items-center justify-center rounded-[20px]'>
             <div className='w-[62.9vw] max-w-[643px]'>
               <p className='pt-[15px] pb-6 text-[16px] font-medium'>오늘의 목표</p>
               <div className='relative'>
-                <Slider value={value} onValueChange={setValue} min={min} max={max} step={1} />
-                {/* 현재 값 */}
+                <Slider
+                  value={value}
+                  onValueChange={setValue}
+                  onValueCommit={handleValueCommit}
+                  min={min}
+                  max={max}
+                  step={1}
+                />
                 <span
                   className='text-main-green absolute bottom-full mb-1 -translate-x-1/2 text-[14px] font-medium'
                   style={{ left: `calc(${percent}% + ${offset}px)` }}
                 >
                   {value[0]}
                 </span>
-                {/* min / max */}
                 <div className='text-disabled mt-1.5 flex justify-between text-[14px] font-medium'>
                   <span className={hideMin ? 'invisible' : ''}>{min}</span>
                   <span className={hideMax ? 'invisible' : ''}>{max}</span>
@@ -79,7 +87,7 @@ const ProfilePage = () => {
           </div>
         </section>
 
-        {/* 스코어링 기준표  */}
+        {/* 스코어링 기준표 */}
         <section className='mb-[25px]'>
           <p className='text-sb-18 mb-2.5'>스코어링 기준표</p>
           <div className='bg-soft flex h-auto flex-col items-center rounded-[20px] py-[27px]'>
@@ -127,7 +135,6 @@ const ProfilePage = () => {
           <div className='bg-soft h-auto rounded-[20px]'></div>
         </section>
 
-        {/* 로그아웃 버튼 */}
         <section className='bg-light flex h-[53px] items-center rounded-[20px] pl-[38px]'>
           <button className='text-[16px] font-medium' onClick={postLogout}>
             로그아웃
