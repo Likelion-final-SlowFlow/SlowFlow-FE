@@ -37,7 +37,7 @@ const LoginPage = () => {
         password: form.password,
       })
       // 로그인 성공
-      navigate('/')
+      navigate('/home')
     } catch (err) {
       console.error(err)
       // 401/404
