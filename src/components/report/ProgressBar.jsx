@@ -9,7 +9,7 @@ const RoundedBar = (props) => {
 
 export default function ProgressBar({
   percent = 50,
-  max = 100,
+  max = 300,
   fillColor = '#4ADE80',
   trackColor = '#C8C8C8',
   barSize = 7,

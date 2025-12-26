@@ -2,7 +2,7 @@ import ProgressBar from './ProgressBar'
 
 export default function ScoreSummaryCard({
   title = '오늘의 점수: +0',
-  goal = 100,
+  goal = 300,
   positiveValue = '+0',
   positivePercent = 0,
   negativeValue = '0',

@@ -39,7 +39,7 @@ export default function ReportPage() {
                         ? `오늘의 점수: +${data?.totalScore}`
                         : `오늘의 점수: ${data?.totalScore}`
                     }
-                    goal={200}
+                    goal={300}
                     positiveValue={`+${data?.totalPositive}`}
                     positivePercent={data?.totalPositive}
                     negativeValue={`-${data?.totalNegative}`}
