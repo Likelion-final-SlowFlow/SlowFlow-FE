@@ -24,7 +24,7 @@ const WeeklyChart = ({ chartData }) => {
   )
 
   return (
-    <div className='bg-light mt-[30px] w-[290px] rounded-[20px] px-[23px] shadow-[0_0_4px_0_rgba(0,0,0,0.25)]'>
+    <div className='bg-light mt-[30px] mb-25 w-[290px] rounded-[20px] px-[23px] shadow-[0_0_4px_0_rgba(0,0,0,0.25)]'>
       {isAllZero ? (
         <div className='flex min-h-[233px] flex-col items-center justify-center text-center'>
           <p className='text-[14px] font-medium text-gray-400'>꾸준히 기록하면</p>

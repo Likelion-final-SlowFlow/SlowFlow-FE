@@ -15,14 +15,23 @@ const MonthlyChart = ({ chartData }) => {
     },
   }
 
+  const getBarGap = (length) => {
+    if (length >= 6) return 5
+    if (length === 5) return 9
+    if (length === 4) return 13
+    return 0 // 기본값
+  }
+
   if (!chartData) return null
 
   const isAllZero = chartData.every(
     (d) => (d.positiveTotal || 0) === 0 && (d.negativeTotal || 0) === 0,
   )
 
+  const dynamicBarGap = getBarGap(chartData.length)
+
   return (
-    <div className='bg-light mt-[30px] w-[290px] rounded-[20px] px-[23px] shadow-[0_0_4px_0_rgba(0,0,0,0.25)]'>
+    <div className='bg-light mt-[30px] mb-25 w-[290px] rounded-[20px] px-[23px] shadow-[0_0_4px_0_rgba(0,0,0,0.25)]'>
       {isAllZero ? (
         <div className='flex min-h-[233px] flex-col items-center justify-center text-center'>
           <p className='text-[14px] font-medium text-gray-400'>데이터가 없습니다.</p>
@@ -38,7 +47,7 @@ const MonthlyChart = ({ chartData }) => {
             data={chartData}
             maxBarSize={14}
             barGap={-1}
-            barCategoryGap={2}
+            barCategoryGap={dynamicBarGap}
             margin={{ top: 10 }}
           >
             <XAxis

@@ -1,6 +1,7 @@
 import client from '../shared/client'
 import { handleApiError } from '../shared/handleApiError.js'
 
+// 아이디 중복 확인
 export async function checkUsername(username) {
   try {
     const res = await client.get('/auth/check-username', {

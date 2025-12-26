@@ -1,15 +1,11 @@
 import client from '../shared/client'
 import { handleApiError } from '../shared/handleApiError'
+import { tokenStorage } from '../login/tokenStorage'
 
-// 회원가입
-export async function signup({ username, email, password }) {
+// 프로필 조회
+export async function getProfile() {
   try {
-    const res = await client.post('/auth/signup', {
-      username,
-      email,
-      password,
-    })
-
+    const res = await client.get('/profile')
     return res.data.data
   } catch (error) {
     throw handleApiError(error)
