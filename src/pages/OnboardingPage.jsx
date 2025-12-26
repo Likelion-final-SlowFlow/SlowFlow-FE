@@ -44,7 +44,7 @@ export default function OnboardingPage() {
         cta: '시작하기',
         onDone: () => {
           localStorage.setItem('onboarding_done', '1')
-          navigate('/signup')
+          navigate('/login')
         },
       },
     ],
