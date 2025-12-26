@@ -6,29 +6,35 @@ import useApi from '@/hook/useApi'
 import Footer from '@/components/common/Footer'
 
 const HomePage = () => {
-  const { data, error, loading, execute } = useApi(getDashboard)
+  const { data, loading, execute } = useApi(getDashboard)
 
   useEffect(() => {
     execute()
   }, [])
 
-  if (loading) return <p>불러오는 중…</p>
-  if (error) return <p>{error.message}</p>
-
   return (
-    <div className='flex min-h-screen flex-col items-center'>
-      <div className='mt-[15%] mb-4 ml-[15%] self-start'>
-        <p className='text-xl font-semibold text-black'>오늘의 목표 도달까지</p>
-        <p className='text-xl font-semibold text-black'>{data?.remainingToGoal}점 남았어요!</p>
+    !loading && (
+      <div className='flex h-screen flex-col'>
+        <div className='no-scrollbar flex-1 overflow-y-auto'>
+          <div className='flex min-h-full flex-col items-center'>
+            <div className='mt-[15%] mb-4 ml-[15%] self-start'>
+              <p className='text-xl font-semibold text-black'>오늘의 목표 도달까지</p>
+              <p className='text-xl font-semibold text-black'>
+                {data?.remainingToGoal}점 남았어요!
+              </p>
+            </div>
+            <Score
+              currentScore={data?.currentScore}
+              goalScore={data?.goalScore}
+              message={data?.feedback}
+            />
+            <SelectCategory />
+            <div className='h-[95px]' />
+          </div>
+        </div>
+        <Footer select='home' />
       </div>
-      <Score
-        currentScore={data?.currentScore}
-        goalScore={data?.goalScore}
-        message={data?.feedback}
-      />
-      <SelectCategory />
-      <Footer select='home' />
-    </div>
+    )
   )
 }
 
