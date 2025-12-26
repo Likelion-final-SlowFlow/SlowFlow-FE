@@ -20,7 +20,7 @@ export default function CategoryDropdown({ value, onChange }) {
       </button>
 
       {open && (
-        <div className='absolute top-full left-0 z-10 mt-2 w-full overflow-hidden rounded-[15px] bg-white shadow-md'>
+        <div className='absolute top-full left-0 z-2 mt-2 w-full overflow-hidden rounded-[15px] bg-white shadow-md'>
           {CATEGORIES.map((category) => (
             <button
               key={category}
