@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import AuthBox from '../components/auth/AuthBox'
 import Button from '../components/common/Button'
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/Logo.svg'
 import AuthModal from '@/components/auth/AuthModal'
 
 import { checkEmail } from '@/api/login/checkEmail.js'
