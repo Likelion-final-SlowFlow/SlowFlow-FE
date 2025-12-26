@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/onboarding',
+        path: '/',
         element: <OnboardingPage />,
       },
       {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: '/',
+        path: '/home',
         element: <HomePage />,
       },
       {

@@ -12,7 +12,7 @@ export default function Footer({ select = 'home' }) {
   const navigate = useNavigate()
 
   const tabs = [
-    { key: 'home', path: '/', Icon: Home, ActiveIcon: Home2, label: '홈' },
+    { key: 'home', path: '/home', Icon: Home, ActiveIcon: Home2, label: '홈' },
     { key: 'report', path: '/report', Icon: Report, ActiveIcon: Report2, label: '리포트' },
     { key: 'history', path: '/history', Icon: History, ActiveIcon: History2, label: '히스토리' },
     { key: 'profile', path: '/profile', Icon: Profile, ActiveIcon: Profile2, label: '프로필' },
