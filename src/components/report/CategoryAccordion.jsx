@@ -30,7 +30,7 @@ export default function CategoryAccordion({
       <div className='min-h-[100px] px-7 pb-7'>
         {items.length === 0 ? (
           <div className='flex min-h-[100px] items-center justify-center pb-2 text-center text-xs font-medium text-black'>
-            오늘 아직 입력된 {label}이 없어요
+            오늘 아직 입력된 {LABEL_MAP[label]}이 없어요
           </div>
         ) : (
           <div className='space-y-3'>
