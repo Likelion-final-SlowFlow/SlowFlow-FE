@@ -24,13 +24,15 @@ export default function ActionResultModal({ open, onClose, result }) {
       />
 
       <div className='relative w-[85%] max-w-[340px] rounded-[20px] bg-white p-8 shadow-2xl'>
-        <h2 className='text-center text-xl font-semibold whitespace-pre-line text-black'>
-          {hasResult
-            ? result.rawScore > 0
-              ? `+${result.rawScore} 채움`
-              : `${result.rawScore} 부담`
-            : `오늘 해당 카테고리 ${'\n'}점수 한도에 도달했습니다.`}
-        </h2>
+        {hasResult ? (
+          <h2 className='text-center text-xl font-semibold whitespace-pre-line text-black'>
+            {result.rawScore > 0 ? `+${result.rawScore} 채움` : `${result.rawScore} 부담`}
+          </h2>
+        ) : (
+          <h2 className='pb-2 text-center text-lg font-semibold whitespace-pre-line text-black'>
+            오늘 해당 카테고리 {'\n'}점수 한도에 도달했습니다.
+          </h2>
+        )}
 
         {hasResult && (
           <>
